@@ -1,10 +1,10 @@
-import { type } from "@testing-library/user-event/dist/type";
 import React, { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 function SignupForm() {
 
     const[formData,setFormData] = useState({
-        firstname : "" , lastname : "" , email : "" , createpassword : "" , confirmpassword : ""
+        firstname : "" , lastname : "" , email : "" , createPassword : "" , confirmPassword : ""
     })
 
     const[showPassword,setShowPassword] = useState();
@@ -44,6 +44,7 @@ function SignupForm() {
                             placeholder="First Name"
                             name="firstname"
                             value={FormData.firstname}
+                            onChange={changeHandler}
                         />
                     </label>
 
@@ -70,25 +71,25 @@ function SignupForm() {
                         placeholder="Enter Email Address"
                         name="email"
                         value={FormData.email}
-                        onChange={changeHandler}
+                        onChange={changeHandler} 
                     />
                 </label>
 
                 <div>
                     <label>
                         <p>Create Password <sup>*</sup></p>
-
+ 
                         <input
                             required
                             type= {showPassword ? ("text") : ("password") }
                             placeholder="Create Password"
-                            name="createpassword"
-                            value={FormData.createpassword}
+                            name="createPassword"
+                            value={FormData.createPassword}
                             onChange={changeHandler}
                         />
 
                         <span onClick={ () => setShowPassword( (prev) => !prev)}>
-                            {showPassword ? (<AiOutLineEyeInvisiable/>) : (<AiOutLineEye/>)}
+                            {showPassword ? (<AiOutlineEyeInvisible/>) : (<AiOutlineEye/>)}
                         </span>
                     </label>
 
@@ -99,16 +100,18 @@ function SignupForm() {
                             required
                             type= {showPassword ? ("text") : ("password") }
                             placeholder="Confirm Password"
-                            name="confirmpassword"
-                            value={FormData.confirmpassword}
+                            name="confirmPassword"
+                            value={FormData.confirmPassword}
                             onChange={changeHandler}
                         />
 
                         <span onClick={ () => setShowPassword( (prev) => !prev)}>
-                            {showPassword ? (<AiOutLineEyeInvisiable/>) : (<AiOutLineEye/>)}
+                            {showPassword ? (<AiOutlineEyeInvisible/>) : (<AiOutlineEye/>)}
                         </span>
                     </label>
                 </div>
+
+                <button>Create Account</button>
                 
             </form>
             

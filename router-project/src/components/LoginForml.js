@@ -1,74 +1,168 @@
-import { type } from "@testing-library/user-event/dist/type";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import React, { useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+// import { toast } from "react-hot-toast";
 
-function LoginForm() {
+// function LoginForm({setIsLoggedIn}) {
 
-    const[formData,setFormData] = useState({
-        email : "",password : ""
+//     const nevigate = useNavigate()  
+
+//     const[formData,setFormData] = useState({
+//         email : "",password : ""
+//     })
+
+//     const[showPassword,setShowPassword] = useState();
+
+//     function changeHandler(event) {
+//         setFormData((prevData) => (
+//             {
+//                 ...prevData,
+//                 [event.target.name] : event.target.value
+//             }
+//         ))
+//     }
+
+//     function submitHandler(event) {
+//         event.preventDefault();
+//         setIsLoggedIn(true);
+//         toast.success("true");
+//         nevigate("/dashbord");
+//     }
+
+//     return(
+//         <from onSubmit={submitHandler}>
+//             <label>
+//                 <p>
+//                     Email Address<sup>*</sup>
+//                 </p>
+
+//                 <input
+//                 required
+//                 type="text"
+//                 placeholder="enter your Email"
+//                 value={formData.email}
+//                 name="email"
+//                 onChange={changeHandler}
+//                 />
+
+//             </label>
+
+//             <label>
+//                 <p>
+//                     Password<sup>*</sup>
+//                 </p>
+
+//                 <input
+//                 required
+//                 type= {showPassword ? ("text") : ("password")}
+//                 placeholder="enter your Password"
+//                 value={formData.password}
+//                 name="password"
+//                 onChange={changeHandler}
+//                 />
+                
+//                 <span onClick={ () => setShowPassword( (prev) => !prev)}>
+//                     {showPassword ? (<AiOutlineEyeInvisible/>) : (<AiOutlineEye/>)}
+//                 </span>
+
+//                 <Link to="#">
+//                     <p>
+//                         Forget Password
+//                     </p>
+//                 </Link>
+
+//             </label>
+            
+//             <button onClick={submitHandler}>
+//                 Sign in
+//             </button>
+
+//         </from>
+//     );
+// }
+
+// export default LoginForm;
+
+import React, { useState } from 'react'
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+
+
+const LoginForm = ({setIsLoggedIn}) => {
+
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState( {
+        email:"", password:""
     })
 
-    const[showPassword,setShowPassword] = useState();
+    const[showPassword, setShowPassword] = useState(false);
 
     function changeHandler(event) {
-        setFormData((prevData) => (
+
+        setFormData( (prevData) =>(
             {
                 ...prevData,
-                [event.target.name] : event.target.value
+                [event.target.name]:event.target.value
             }
-        ))
+        ) )
+
     }
 
-    return(
-        <from>
-            <label>
-                <p>
-                    Email Address<sup>*</sup>
-                </p>
+    function submitHandler(event) {
+        event.preventDefault();
+        setIsLoggedIn(true);
+        toast.success("Logged In");
+        navigate("/dashboard");
+    }
 
-                <input
+  return (
+    <form onSubmit={submitHandler}>
+        <label>
+            <p>
+                Email Address<sup>*</sup>
+            </p>
+            <input 
                 required
-                type="text"
-                placeholder="enter your Email"
-                value={formData.email}
-                name="email"
+                type="email"
+                value = {formData.email}
                 onChange={changeHandler}
-                />
+                placeholder="Enter email id"
+                name="email"
+            />
+        </label>
 
-            </label>
-
-            <label>
-                <p>
-                    Password<sup>*</sup>
-                </p>
-
-                <input
+        <label>
+            <p>
+                Password<sup>*</sup>
+            </p>
+            <input 
                 required
                 type= {showPassword ? ("text") : ("password")}
-                placeholder="enter your Password"
-                value={formData.password}
-                name="password"
+                value = {formData.password}
                 onChange={changeHandler}
-                />
-                
-                <span onClick={ () => setShowPassword( (prev) => !prev)}>
-                    {showPassword ? (<AiOutLineEyeInvisiable/>) : (<AiOutLineEye/>)}
-                </span>
+                placeholder="Enter Password"
+                name="password"
+            />
 
-                <Link>
-                    <p>
-                        Forget Password
-                    </p>
-                </Link>
+            <span onClick={() => setShowPassword((prev) => !prev)}>
+                {showPassword ? (<AiOutlineEyeInvisible/>) : (<AiOutlineEye/>)}
+            </span>
 
-            </label>
-            
-            <button>
-                Sign in
-            </button>
+            <Link to="#">
+                <p>
+                    Forgot Password
+                </p>
+            </Link>
+        </label>
 
-        </from>
-    );
+        <button>
+            Sign In
+        </button>
+
+    </form>
+  )
 }
 
-export default LoginForm;
+export default LoginForm

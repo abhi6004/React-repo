@@ -9,20 +9,22 @@ import { useState } from "react";
 
 function App() {
 
-  const[isLoggedin,setIsLoggedin] = useState(false);
+  const [isLoggedIn,setIsLoggedIn] = useState(false);
 
   return(
     <div>
-      <Navbar isLoggedin={isLoggedin} setIsLoggedin={setIsLoggedin}/>
+      <Navbar isLoggedin={isLoggedIn} setIsLoggedin={setIsLoggedIn}/>
 
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="login" element={<Login/>}/>
-        <Route path="singup" element={<Signup/>}/>
-        <Route path="dashbord" element={<Dashboard/>} />
+        <Route path="/login" element={<Login  setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/signup" element={<Signup  setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
       </Routes>
     </div>
   )
 }
 
 export default App;
+
+
