@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
-function SignupForm() {
+const SignupForm = ({setIsLoggedIn}) =>  {
 
     const[formData,setFormData] = useState({
         firstname : "" , lastname : "" , email : "" , createPassword : "" , confirmPassword : ""
     })
 
     const[showPassword,setShowPassword] = useState();
+
+    const navigate = useNavigate();
     
     function changeHandler(event) {
         setFormData( (prevData) => (
@@ -16,6 +20,18 @@ function SignupForm() {
             [event.target.name] : event.target.value
             }
          ) )
+    }
+
+    function submitHandler(event) {
+        event.preventDefault();
+        if(formData.createPassword != formData.confirmPassword) {
+            toast.error("password not match");
+            return;
+        }
+
+        setIsLoggedIn(true);
+        toast.success("Sign Up");
+        navigate("/dashbord");
     }
 
     return(
@@ -32,7 +48,7 @@ function SignupForm() {
                 </button>
             </div>
 
-            <form>
+            <form onSubmit={submitHandler}>
 
                 <div>
                     <label>
@@ -111,7 +127,7 @@ function SignupForm() {
                     </label>
                 </div>
 
-                <button>Create Account</button>
+                <button onClick={submitHandler}>Create Account</button>
                 
             </form>
             

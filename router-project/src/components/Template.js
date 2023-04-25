@@ -17,7 +17,7 @@ function Template({title,desc1,desc2,image,formtype,setIsLoggedIn}) {
                 </p>
 
                 {formtype === "signup" ?
-                (<SignupForm setIsLoggedin={setIsLoggedIn}/>):
+                (<SignupForm setIsLoggedIn={setIsLoggedIn}/>):
                 (<LoginForm  setIsLoggedIn={setIsLoggedIn}/>)}
 
                 <div>
