@@ -1,45 +1,44 @@
-import react, { useState } from "react";
-import Spinner from "./Spinner";
-import useGif from "../hooks/useGif";
+import React, { useState } from 'react'
+import axios from 'axios';
+import { useEffect } from 'react';
+import Spinner from './Spinner';
+import useGif from '../hooks/useGif';
+
 
 const API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
 
-function Tag() {
-    
-    const[tag,setTag] = useState("iron man");
-    const {gif,loading,fetachData} = useGif(tag);
+const Tag = () => {
+  const [tag, setTag] = useState('car');
 
-    function clickHandler() {
-        fetachData();
+  const {gif, loading, fetchData} = useGif(tag);
+
+
+  return (
+    <div className='w-1/2  bg-blue-500 rounded-lg border border-black
+    flex flex-col items-center gap-y-5 mt-[15px]'>
+
+      <h1 className='mt-[15px] text-2xl underline uppercase font-bold'> Random {tag} Gif</h1>
+
+    {
+        loading ? (<Spinner/>) : (<img src= {gif} width="450" />)
     }
 
-    function changeHandler(event) {
-        setTag(event.target.value)
-    }
+      <input 
+        className='w-10/12 text-lg py-2 rounded-lg mb-[3px] text-center'
+        onChange={(event) =>  setTag(event.target.value)}
+        value={tag}
+      />
+      
 
-    return(
-        <div className="bg-blue-500 w-1/2 rounded-lg border border-black flex flex-col items-center gap-5 mt-[15px]">
+      <button onClick={() => fetchData(tag)}
+      className="w-10/12 bg-yellow-500 text-lg py-2 rounded-lg mb-[20px]">
 
-            <h1 className="mt-[15px] text-2xl font-bold underline uppercase">
-                Random {tag} GIFS
-            </h1>
+       Generate
 
-            {
-                loading ? (<Spinner/>) : (<img src={gif} width="450"/>)
-            }
+      </button>
 
-            <input
-                className="w-10/12 bg-white py-2 rounded-xl font-bold text-center"
-                onChange={changeHandler}
-                value={tag}
-            />
-
-            <button className="w-10/12 bg-white py-2 rounded-xl font-bold mb-[20px]" onClick={clickHandler}>
-                Generate
-            </button>
-
-        </div>
-    )
+    </div>
+  )
 }
 
-export default Tag;
+export default Tag

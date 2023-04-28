@@ -1,32 +1,39 @@
-import react, { useEffect, useState } from "react";
-import Spinner from "./Spinner";
-import useGif from "../hooks/useGif";
+import React, { useState } from 'react'
+import axios from 'axios';
+import { useEffect } from 'react';
+import Spinner from './Spinner';
+import useGif from '../hooks/useGif';
+
 
 const API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
 
-function Random() {
+const Random = () => {
 
-    const {gif,loading,fetachData} = useGif();
 
-    function clickHandler() {
-        fetachData();
+  const {gif, loading, fetchData} = useGif();
+
+
+  return (
+    <div className='w-1/2  bg-green-500 rounded-lg border border-black
+    flex flex-col items-center gap-y-5 mt-[15px]'>
+
+      <h1 className='mt-[15px] text-2xl underline uppercase font-bold'> A Random Gif</h1>
+
+    {
+        loading ? (<Spinner/>) : (<img src= {gif} width="450" />)
     }
 
-    return(
-        <div className="bg-green-500 w-1/2 rounded-lg border border-black flex flex-col items-center gap-5 mt-[15px]">
+      
 
-            <h1 className="mt-[15px] text-2xl font-bold underline uppercase">Random GIFS</h1>
+      <button onClick={() => fetchData()}
+      className="w-10/12 bg-yellow-500 text-lg py-2 rounded-lg mb-[20px]">
 
-            {
-                loading ? (<Spinner/>) : (<img src={gif} width="450"/>)
-            }
+       Generate
 
-            <button className="w-10/12 bg-white py-2 rounded-xl font-bold mb-[20px]" onClick={clickHandler}>
-                Generate
-            </button>
+      </button>
 
-        </div>
-    )
+    </div>
+  )
 }
 
-export default Random;
+export default Random
